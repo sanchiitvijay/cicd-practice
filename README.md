@@ -1,79 +1,112 @@
 # My Fullstack App
 
-This project is a simple fullstack application that consists of a React frontend and a Node.js backend. It is designed to help you learn about CI/CD practices through a straightforward setup.
+A simple React frontend with Node.js backend for learning CI/CD practices.
 
 ## Project Structure
 
 ```
-my-fullstack-app
-├── frontend
-│   ├── src
-│   │   ├── App.js
-│   │   ├── index.js
-│   │   └── components
-│   │       └── HelloWorld.js
-│   ├── public
-│   │   └── index.html
+my-fullstack-app/
+├── frontend/          # React application
+│   ├── src/
+│   ├── public/
 │   └── package.json
-├── backend
-│   ├── src
-│   │   ├── server.js
-│   │   └── routes
-│   │       └── api.js
+├── backend/           # Node.js Express server
+│   ├── src/
 │   └── package.json
 └── README.md
 ```
 
+## Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+
 ## Getting Started
-
-### Prerequisites
-
-- Node.js (version 14 or higher)
-- npm (Node package manager)
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-   ```
-   cd frontend
-   ```
-
-2. Install the dependencies:
-   ```
-   npm install
-   ```
-
-3. Start the React application:
-   ```
-   npm start
-   ```
-
-   The application will be running on `http://localhost:3000`.
 
 ### Backend Setup
 
 1. Navigate to the backend directory:
-   ```
+   ```bash
    cd backend
    ```
 
-2. Install the dependencies:
-   ```
+2. Install dependencies:
+   ```bash
    npm install
    ```
 
-3. Start the Node.js server:
+3. Copy environment variables:
+   ```bash
+   cp .env.example .env
    ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+The backend server will run on http://localhost:5000
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Copy environment variables:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Start the development server:
+   ```bash
    npm start
    ```
 
-   The server will be running on `http://localhost:5000`.
+The frontend will run on http://localhost:3000
 
-## Usage
+## Available Scripts
 
-- The frontend communicates with the backend through API endpoints defined in the backend application.
-- You can modify the frontend and backend code to explore different functionalities and learn about CI/CD practices.
+### Backend
+- `npm start` - Start production server
+- `npm run dev` - Start development server with nodemon
+- `npm test` - Run tests
+
+### Frontend
+- `npm start` - Start development server
+- `npm run build` - Build for production
+- `npm test` - Run tests
+- `npm run lint` - Run ESLint
+
+## API Endpoints
+
+- `GET /api/health` - Health check endpoint
+- `GET /api/hello` - Simple hello world endpoint
+
+## Environment Variables
+
+### Backend (.env)
+- `NODE_ENV` - Environment (development/production)
+- `PORT` - Server port (default: 5000)
+
+### Frontend (.env)
+- `REACT_APP_API_URL` - Backend API URL
+- `REACT_APP_APP_NAME` - Application name
+
+## CI/CD Ready
+
+This project is structured to support CI/CD pipelines with:
+- Separate frontend and backend builds
+- Environment configuration
+- Test scripts
+- Production build processes
 
 ## License
 
-This project is open-source and available under the MIT License.
+MIT
