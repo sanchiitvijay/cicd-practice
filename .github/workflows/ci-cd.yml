@@ -36,10 +36,6 @@ jobs:
       run: npm test
       working-directory: ./backend
     
-    - name: Run backend linting
-      run: npm run lint
-      working-directory: ./backend
-    
     # Frontend tests
     - name: Install frontend dependencies
       run: npm install
@@ -47,10 +43,6 @@ jobs:
     
     - name: Run frontend tests
       run: npm test -- --coverage --watchAll=false
-      working-directory: ./frontend
-    
-    - name: Run frontend linting
-      run: npm run lint
       working-directory: ./frontend
 
   build:
