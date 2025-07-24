@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App" style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <header style={{ textAlign: 'center', marginBottom: '30px' }}>
-        <h1>Welcome to {process.env.REACT_APP_APP_NAME}</h1>
+        <h1>Welcome to {process.env.REACT_APP_APP_NAME || 'My Fullstack App'}</h1>
         <p>A simple fullstack application for CI/CD learning</p>
       </header>
       
