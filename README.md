@@ -107,6 +107,118 @@ This project is structured to support CI/CD pipelines with:
 - Test scripts
 - Production build processes
 
-## License
+# My Fullstack App - Docker Hub CI/CD
 
-MIT
+A fullstack MERN application with automated Docker image building and deployment to Docker Hub.
+
+## Docker Hub Integration
+
+This project automatically builds and pushes Docker images to Docker Hub on every commit to `main` and `develop` branches.
+
+### Prerequisites
+
+1. **Docker Hub Account**: Create an account at [hub.docker.com](https://hub.docker.com)
+2. **Docker Hub Access Token**: 
+   - Go to Docker Hub → Account Settings → Security
+   - Create a new access token with Read/Write permissions
+
+### GitHub Secrets Setup
+
+Add the following secrets to your GitHub repository:
+
+1. Go to your GitHub repository → Settings → Secrets and variables → Actions
+2. Add these repository secrets:
+   - `DOCKER_HUB_USERNAME`: Your Docker Hub username
+   - `DOCKER_HUB_ACCESS_TOKEN`: Your Docker Hub access token
+
+### Image Tags
+
+The workflow creates the following image tags:
+- `latest`: Latest version from main branch
+- `main-<sha>`: Specific commit from main branch
+- `develop-<sha>`: Specific commit from develop branch
+- `pr-<number>`: Pull request builds
+
+### Docker Images
+
+The workflow builds and pushes two images:
+- `<your-username>/my-fullstack-app-frontend`
+- `<your-username>/my-fullstack-app-backend`
+
+## Usage
+
+### Development (Local Build)
+```bash
+# Build and run locally
+docker-compose up --build
+```
+
+### Production (Docker Hub Images)
+```bash
+# Set your Docker Hub username
+export DOCKER_HUB_USERNAME=your-username
+
+# Run with images from Docker Hub
+docker-compose -f docker-compose.prod.yml up
+```
+
+### Manual Docker Commands
+```bash
+# Pull latest images
+docker pull your-username/my-fullstack-app-frontend:latest
+docker pull your-username/my-fullstack-app-backend:latest
+
+# Run individual services
+docker run -p 3000:80 your-username/my-fullstack-app-frontend:latest
+docker run -p 5000:5000 your-username/my-fullstack-app-backend:latest
+```
+
+## Environment Variables
+
+### Frontend (.env)
+```bash
+REACT_APP_API_URL=http://localhost:5000
+REACT_APP_APP_NAME=My Fullstack App
+```
+
+### Backend (.env)
+```bash
+NODE_ENV=production
+PORT=5000
+```
+
+## Workflow Features
+
+- ✅ Multi-platform builds (linux/amd64, linux/arm64)
+- ✅ Docker layer caching for faster builds
+- ✅ Automatic tagging with commit SHA
+- ✅ Separate builds for frontend and backend
+- ✅ Production-ready images
+- ✅ Auto-update docker-compose.yml with new tags
+
+## Architecture
+
+```
+┌─────────────────┐    ┌─────────────────┐
+│   Frontend      │    │   Backend       │
+│   (React)       │    │   (Node.js)     │
+│   Port: 3000    │────│   Port: 5000    │
+│   nginx:alpine  │    │   node:18-alpine│
+└─────────────────┘    └─────────────────┘
+```
+
+## Deployment
+
+After pushing to main branch:
+1. GitHub Actions builds and pushes images
+2. Images are available on Docker Hub
+3. Deploy anywhere using `docker-compose.prod.yml`
+
+Example deployment:
+```bash
+# On your server
+git clone <your-repo>
+cd my-fullstack-app
+export DOCKER_HUB_USERNAME=your-username
+docker-compose -f docker-compose.prod.yml up -d
+```

@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  backend:
+    image: sanchiitvijay/my-fullstack-app-backend:latest
+    env_file:
+      - ./backend/.env
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+
+  frontend:
+    image: sanchiitvijay/my-fullstack-app-frontend:latest
+    env_file:
+      - ./frontend/.env
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
